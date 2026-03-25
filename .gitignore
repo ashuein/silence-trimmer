@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Local environments and build caches
+.venv/
+.venv_trimmer/
+.codex_tmp/
+
+# Downloaded runtime assets
+silero-vad/
+tools/ffmpeg/
+
+# Local outputs
+_trimmed_output/
+*_trimmed.mp4
+*_trimmed.mkv
+*_trimmed.mov
+*_trimmed.webm
+*_session_manifest.json
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+
+# Local scratch artifacts seen in this repo
+310/

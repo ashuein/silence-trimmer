@@ -1,0 +1,18 @@
+# ── Core (required) ──
+# ffmpeg + ffprobe must be on PATH (system install)
+tqdm>=4.60
+
+# ── TUI (required for interactive mode) ──
+textual>=0.50
+
+# ── Quality analysis (optional, improves boundary energy checks) ──
+# psutil  # better CPU core detection
+
+# ── Silero-VAD backend (optional) ──
+# torch>=2.0
+# torchaudio>=2.0
+
+# ── Topic tagging (optional) ──
+# faster-whisper>=0.10       # preferred transcription backend
+# OR: openai-whisper>=20231117
+# scikit-learn>=1.3          # TF-IDF topic extraction
