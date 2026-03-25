@@ -114,3 +114,7 @@ The trimmed file is still a normal video with audio for the kept sections. The s
 - `silero-vad` works best for spoken content.
 - Video-only files cannot be analyzed for silence and are skipped.
 - If tagging is enabled, the transcription model may still download its own model files on first use for the selected model size.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
