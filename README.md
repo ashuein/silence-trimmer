@@ -10,10 +10,10 @@ A lot of useful recordings are much longer than they need to be.
 
 Examples:
 
-- a. a classroom lecture where the teacher pauses for long stretches while writing on the board
-- b. a screen recording with long setup delays or waiting time
-- c. a meeting or interview recording with repeated dead air
-- d. study material recorded on a phone with uneven pacing
+- a classroom lecture where the teacher pauses for long stretches while writing on the board
+- a screen recording with long setup delays or waiting time
+- a meeting or interview recording with repeated dead air
+- study material recorded on a phone with uneven pacing
 
 These files are still useful, but they are slower to review, harder to share, and frustrating to revisit.
 
@@ -23,32 +23,32 @@ This tool scans a folder of videos, detects silence or non-speech sections, and 
 
 It offers two detection modes:
 
-- a. `ffmpeg`: a simpler audio-threshold based detector
-- b. `silero-vad`: a speech-aware detector that is usually better for spoken recordings
+- `ffmpeg`: a simpler audio-threshold based detector
+- `silero-vad`: a speech-aware detector that is usually better for spoken recordings
 
 It also has a Textual TUI so the user can:
 
-- a. pick a folder
-- b. choose the backend
-- c. tune silence settings
-- d. watch progress live
-- e. review results after processing
+- pick a folder
+- choose the backend
+- tune silence settings
+- watch progress live
+- review results after processing
 
 ## Common Use Cases
 
-- a. recorded lectures from class
-- b. tutoring sessions
-- c. online course screen recordings
-- d. meeting recordings
-- e. interview footage
-- f. self-recorded study explanations
-- g. raw video notes that need cleanup before sharing
+- recorded lectures from class
+- tutoring sessions
+- online course screen recordings
+- meeting recordings
+- interview footage
+- self-recorded study explanations
+- raw video notes that need cleanup before sharing
 
 ## Requirements
 
 The intended requirement is just:
 
-- a. Python 3.10+
+- Python 3.10+
 
 The Windows launcher then takes care of the rest automatically.
 
@@ -74,12 +74,12 @@ The launcher in `silence_trimmer.bat` is designed so the user does not have to m
 
 On first run it will:
 
-- a. create or repair the local virtual environment at `.venv_trimmer`
-- b. install the core Python packages for the app and TUI
-- c. provision local `ffmpeg` and `ffprobe` into `tools/ffmpeg` if they are not already available
-- d. install the Silero runtime dependencies
-- e. download and keep a local `silero-vad` copy beside the repo
-- f. install the tagging dependencies used for transcription and topic extraction
+- create or repair the local virtual environment at `.venv_trimmer`
+- install the core Python packages for the app and TUI
+- provision local `ffmpeg` and `ffprobe` into `tools/ffmpeg` if they are not already available
+- install the Silero runtime dependencies
+- download and keep a local `silero-vad` copy beside the repo
+- install the tagging dependencies used for transcription and topic extraction
 
 On later runs it reuses what is already present instead of downloading everything again.
 
@@ -111,6 +111,6 @@ The trimmed file is still a normal video with audio for the kept sections. The s
 
 ## Notes
 
-- a. `silero-vad` works best for spoken content.
-- b. Video-only files cannot be analyzed for silence and are skipped.
-- c. If tagging is enabled, the transcription model may still download its own model files on first use for the selected model size.
+- `silero-vad` works best for spoken content.
+- Video-only files cannot be analyzed for silence and are skipped.
+- If tagging is enabled, the transcription model may still download its own model files on first use for the selected model size.
