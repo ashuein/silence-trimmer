@@ -1,5 +1,9 @@
 # Video Silence Trimmer
 
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+![Platform](https://img.shields.io/badge/platform-Windows-lightgrey)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 `Video Silence Trimmer` is a small desktop-style tool for cleaning up long recordings by cutting dead air out of videos in batches.
 
 It is built for the kind of files people actually collect over time: recorded lectures, class sessions, screen recordings, training videos, meeting recordings, interview captures, and rough content that has too much waiting, pausing, or empty space.
@@ -16,6 +20,18 @@ Examples:
 - study material recorded on a phone with uneven pacing
 
 These files are still useful, but they are slower to review, harder to share, and frustrating to revisit.
+
+
+## Why Not Just Use FFmpeg Directly
+
+- ffmpeg's silencedetect filter works on amplitude threshold alone. It has no concept of speech — it will cut a quiet voice and keep a loud background hum. For spoken recordings, this produces unusable output without manual tuning per file.
+
+- silero-vad solves this by detecting speech probability per frame, not audio energy. The tradeoff is runtime — it is slower and requires a model download on first use.
+
+- This tool wraps both, lets the user choose, and handles the stitching, batching, and output management that neither provides.
+
+- This tool will/can be improved to functionalise auto content tagging to video sections to allow bookmarking segments with topics it is related to. 
+
 
 ## The Solution
 
@@ -99,6 +115,35 @@ input_folder/
 
 The trimmed file is still a normal video with audio for the kept sections. The silent parts are removed; the remaining video and audio are stitched together.
 
+## Architecture
+```
+Input Folder
+    │
+    ▼
+Folder Scanner → filters non-video, skips video-only files
+    │
+    ▼
+Detection Backend (user choice)
+    ├── ffmpeg silencedetect (fast, threshold-based)
+    └── silero-vad (speech-aware, model-based)
+    │
+    ▼
+Segment Builder → computes keep/cut intervals
+    │
+    ▼
+ffmpeg Concat → stitches kept segments into output file
+    │
+    ▼
+_trimmed_output/
+    ├── trimmed video files
+    └── _session_manifest.json (per-file segment log)
+```
+
+TUI layer (Textual) runs over this pipeline and manages
+folder selection, backend config, progress display, and
+results review.
+
+
 ## Screenshots
 
 ### Main TUI
@@ -114,6 +159,17 @@ The trimmed file is still a normal video with audio for the kept sections. The s
 - `silero-vad` works best for spoken content.
 - Video-only files cannot be analyzed for silence and are skipped.
 - If tagging is enabled, the transcription model may still download its own model files on first use for the selected model size.
+
+## Limitations
+
+- Windows only currently (bat launcher + venv path assumptions)
+- silero-vad requires internet on first run to download model weights
+- Video-only files (no audio track) are skipped entirely
+- Very short silence gaps below ~300ms are not removed to avoid
+  cutting mid-word pauses
+- LLM topic tagging requires transcription first — adds significant
+  runtime for large files
+- No GPU acceleration — silero runs on CPU only in this build
 
 ## License
 
